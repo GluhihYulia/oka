@@ -1,0 +1,39 @@
+# Имя нашего процесса
+name: Deploy to GitHub Pages
+
+# Когда запускать: при каждом изменении в ветке main
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+# Разрешения для публикации
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Чтобы не было конфликтов при одновременных запусках
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+# Что именно делать
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Скачать код из репозитория
+        uses: actions/checkout@v4
+      - name: Настроить Pages
+        uses: actions/configure-pages@v5
+      - name: Загрузить файлы сайта
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'  # Берём все файлы из корня
+      - name: Опубликовать на GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
