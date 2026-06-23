@@ -1,0 +1,226 @@
+<style>
+    /* ----- ОБЩИЕ НАСТРОЙКИ (мягкие летние тона) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background-color: #fcf6ed;  /* тёплый кремовый */
+      color: #3b4d3e;
+      line-height: 1.6;
+      /* фоновый водяной знак — картинка Оки с прозрачностью */
+      background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center 20%;
+      /* ПРОЗРАЧНОСТЬ через псевдоэлемент (реализовано ниже) */
+      position: relative;
+    }
+
+    /* затемнение + прозрачность для фона (водяной знак) */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-color: rgba(252, 246, 237, 0.78); /* полупрозрачный слой — эффект акварели */
+      z-index: -1;
+      backdrop-filter: blur(1px); /* лёгкая дымка, чтобы текст читался */
+    }
+
+    /* контейнер для всего контента */
+    .wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 25px 60px;
+      background-color: rgba(255, 248, 240, 0.40); /* совсем прозрачный, чтобы фон просвечивал */
+      backdrop-filter: blur(2px);
+      border-radius: 32px 32px 16px 16px;
+      box-shadow: 0 12px 30px rgba(140, 120, 90, 0.08);
+    }
+
+    /* ---------- ВЕРХНЕЕ МЕНЮ (всегда наверху) ---------- */
+    .sticky-menu {
+      position: sticky;
+      top: 20px;
+      z-index: 50;
+      background: rgba(245, 235, 215, 0.75);
+      backdrop-filter: blur(8px);
+      padding: 12px 20px;
+      border-radius: 60px;
+      box-shadow: 0 6px 18px rgba(160, 130, 90, 0.12);
+      margin-bottom: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 18px;
+      border: 1px solid rgba(255, 235, 200, 0.4);
+      transition: all 0.2s;
+    }
+
+    .sticky-menu a {
+      display: inline-block;
+      padding: 8px 18px;
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: #4a5e4a;
+      background: rgba(250, 240, 225, 0.3);
+      border-radius: 40px;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      transition: 0.2s;
+      border: 1px solid transparent;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .sticky-menu a:hover {
+      background: #e5dccc;
+      color: #2b3f2b;
+      border-color: #c9b89b;
+      transform: scale(1.02);
+      box-shadow: 0 6px 12px rgba(150, 120, 80, 0.10);
+    }
+
+    /* ----- СЕКЦИИ (якоря) ----- */
+    section {
+      background: rgba(252, 245, 235, 0.50);
+      backdrop-filter: blur(3px);
+      padding: 30px 30px 35px;
+      margin: 50px 0 60px;
+      border-radius: 48px 16px 48px 16px;
+      box-shadow: 0 8px 24px rgba(140, 115, 80, 0.07);
+      border: 1px solid rgba(255, 235, 210, 0.3);
+      transition: 0.2s;
+    }
+
+    section:first-of-type {
+      margin-top: 10px;
+    }
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+      color: #3b5e3b;
+      border-left: 6px solid #dac09a;
+      padding-left: 20px;
+      margin-bottom: 20px;
+      font-family: 'Georgia', 'Times New Roman', serif;
+      text-shadow: 0 2px 6px rgba(200, 170, 130, 0.15);
+    }
+
+    p {
+      margin-bottom: 16px;
+      font-size: 1.05rem;
+      background: rgba(255, 250, 240, 0.3);
+      padding: 8px 16px;
+      border-radius: 30px;
+      display: inline-block;
+      backdrop-filter: blur(2px);
+    }
+
+    /* списки, карточки */
+    ul, .list-card {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 20px;
+      padding: 6px 0;
+    }
+
+    li {
+      background: rgba(250, 242, 230, 0.6);
+      backdrop-filter: blur(2px);
+      padding: 8px 22px 8px 18px;
+      border-radius: 40px;
+      font-size: 1rem;
+      border: 1px solid #e6d7be;
+      box-shadow: 0 2px 6px rgba(180, 150, 110, 0.05);
+    }
+
+    .price-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px 40px;
+      background: rgba(250, 240, 225, 0.25);
+      padding: 16px 20px;
+      border-radius: 60px;
+      backdrop-filter: blur(2px);
+    }
+
+    .price-item {
+      font-size: 1.15rem;
+      font-weight: 500;
+      display: block;
+      width: 100%;
+    }
+
+    .price-item span {
+      font-weight: 300;
+      background: #e2d2b8;
+      padding: 2px 12px;
+      border-radius: 30px;
+      color: #2f442f;
+      margin-left: 6px;
+    }
+
+    .contacts-block {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px 40px;
+      background: rgba(245, 235, 215, 0.3);
+      padding: 16px 24px;
+      border-radius: 60px;
+      backdrop-filter: blur(2px);
+    }
+
+    .contacts-block div {
+      background: rgba(255, 245, 230, 0.5);
+      padding: 6px 18px;
+      border-radius: 40px;
+    }
+
+    /* маленькая подпись внизу */
+    .footer-note {
+      margin-top: 50px;
+      text-align: center;
+      color: #5b6b4b;
+      font-size: 0.95rem;
+      border-top: 1px dashed #cbbea6;
+      padding-top: 24px;
+      opacity: 0.8;
+      letter-spacing: 0.5px;
+    }
+
+    /* адаптив */
+    @media (max-width: 650px) {
+      .sticky-menu {
+        gap: 6px 10px;
+        padding: 12px 12px;
+        border-radius: 40px;
+      }
+      .sticky-menu a {
+        font-size: 0.95rem;
+        padding: 5px 12px;
+      }
+      h2 {
+        font-size: 1.6rem;
+      }
+      section {
+        padding: 20px 18px;
+      }
+    }
+
+    /* "кнопка" в стиле мягкого лета */
+    .soft-badge {
+      background: #f0e3d0;
+      padding: 2px 16px;
+      border-radius: 40px;
+      display: inline-block;
+      font-size: 0.9rem;
+      color: #425a3f;
+    }
+  </style>
