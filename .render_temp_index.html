@@ -217,7 +217,7 @@
 
 <p style="font-size: 1.1rem; margin: 0 0 12px 0; padding: 0; background: transparent;">Напишите нам!</p>
   
-  <form action="https://formsubmit.co/riviere-oka@mail.ru" method="POST" target="_blank">
+  <form action="https://formsubmit.co/riviere-oka@mail.ru" method="POST">
     <!-- Скрытые поля (не видны пользователю) -->
     <input type="hidden" name="_captcha" value="false">
     <input type="hidden" name="_subject" value="Новое сообщение с сайта riviere-oka.ru!">
@@ -283,20 +283,5 @@
   </div>
   <!-- конец wrapper -->
 
-
-<script>
-  // Проверяем, есть ли в адресной строке параметр ?spasibo
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.has('spasibo')) {
-    // Показываем сообщение
-    document.getElementById('thanksMessage').style.display = 'block';
-    // Прячем саму форму, чтобы не было путаницы
-    const form = document.querySelector('#contacts form');
-    if (form) form.style.display = 'none';
-    // Убираем параметр из адресной строки, чтобы при обновлении страницы сообщение не исчезало
-    // (но это необязательно, можно оставить как есть)
-    // window.history.replaceState({}, document.title, window.location.pathname);
-  }
-</script>
 </body>
 </html><script>window.scrollTo(0, 0); setTimeout(function() { window.scrollTo(0, 0); },200)</script>
